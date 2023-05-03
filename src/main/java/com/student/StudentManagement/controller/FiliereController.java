@@ -29,26 +29,26 @@ public class FiliereController {
         return adResp;
     }
 
-    @GetMapping("/viewFilieres")
+    @GetMapping
     public List<RespenseFiliereDto> viewFilieres() {
         return filiereService.getAllFilieres();
 
     }
 
-    @GetMapping("/viewFiliere/{id}")
+    @GetMapping("/{id}")
     public RespenseFiliereDto viewFiliere(@PathVariable(value = "id") Long id) {
         return filiereService.getFiliereById(id);
 
     }
 
 
-    @GetMapping("/deleteFiliere/{id}")
+    @DeleteMapping("/{id}")
     public void deleteFiliere(@PathVariable(value = "id") Long id) {
         filiereService.deleteFiliere(id);
     }
 
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public RequestFiliereDto updateFiliere(@PathVariable Long id, @RequestBody RequestFiliereDto filiere) {
         return filiereService.updateFiliere(id,filiere);
 

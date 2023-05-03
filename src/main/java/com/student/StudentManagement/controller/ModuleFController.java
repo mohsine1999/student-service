@@ -23,26 +23,26 @@ public class ModuleFController {
         moduleFService.saveModule(dataPojo);
     }
 
-    @GetMapping("/viewModules")
+    @GetMapping
     public List<RespenseModuleFDto> viewModules() {
         return moduleFService.getAllModuleFs();
 
     }
 
-    @GetMapping("/viewModule/{id}")
+    @GetMapping("/{id}")
     public RespenseModuleFDto viewModule(@PathVariable(value = "id") Long id) {
         return moduleFService.getModuleFById(id);
 
     }
 
 
-    @GetMapping("/deleteModule/{id}")
+    @DeleteMapping("/{id}")
     public void deleteModule(@PathVariable(value = "id") Long id) {
         moduleFService.deleteModuleF(id);
     }
 
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public RequestModuleFDto updateModuleF(@PathVariable Long id , @RequestBody RequestModuleFDto requestModuleFDto){
         return moduleFService.updateModuleF(id,requestModuleFDto);
     }

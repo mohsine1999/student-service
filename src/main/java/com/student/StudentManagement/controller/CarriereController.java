@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CarriereController {
     private final CarriereService carriereService;
-
     @PostMapping
     public void saveCarriere(@RequestBody CarrierePojo carrierePojo){
         carriereService.saveCarriere(carrierePojo);

@@ -24,35 +24,34 @@ public class StudentController {
 
     }
 
-    @GetMapping("/viewStudents")
+    @GetMapping("/getStudents")
     public List<RespenseStudentDto> viewStudents() {
         return studentService.getAllStudents();
 
     }
 
 
-    @GetMapping("/viewStudent/{apogee}")
+    @GetMapping("/getStudent/{apogee}")
     public RequestStudentDto viewStudent(@PathVariable(value = "apogee") Long apogee) {
         return studentService.getStudentByApogee(apogee);
 
     }
 
 
-    @GetMapping("/deleteStudent/{apogee}")
+    @DeleteMapping("/{apogee}")
     public void deleteStudent(@PathVariable(value = "apogee") Long apogee) {
         studentService.deleteStudent(apogee);
     }
 
-    @GetMapping("/carrieres/{id}")
+    @GetMapping("/{id}")
     public List<Carriere> getCarrieresByStudent(@PathVariable(name = "id") Long id) {
         return studentService.getCarrieresByStudentId(id);
     }
-
-    @GetMapping("/diplomat/{apogee}")
+    @GetMapping("/getDiplomat/{apogee}")
     public Diplomat getCurrentDiplomat(@PathVariable(value = "apogee") Long apogee){
         return studentService.getCurrentDiplomat(apogee);
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/setStudent/{id}")
     public RequestStudentDto updateStudent(@PathVariable Long id , @RequestBody RequestStudentDto requestStudentDto){
         return studentService.updateStudent(id,requestStudentDto);
     }
