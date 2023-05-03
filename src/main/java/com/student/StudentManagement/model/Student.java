@@ -1,7 +1,6 @@
 package com.student.StudentManagement.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.student.StudentManagement.enumurations.Diplomat;
 import com.student.StudentManagement.enumurations.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

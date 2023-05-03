@@ -47,23 +47,14 @@ public class FiliereServiceImpl implements FiliereService {
         RespenseFiliereDto dto = RespenseFiliereDto.builder().build();
 
         Optional<Filiere> opt = filierRepository.findById(id);
-        Filiere filiere ;
+        Filiere filiere;
         if (opt.isPresent()) {
             filiere = opt.get();
         } else {
             throw new RuntimeException("Filiere not found for id :: " + id);
         }
-
         BeanUtils.copyProperties(filiere, dto);
         return dto;
-
-//        Optional<Filiere> opt = filierRepository.findById(id);
-//        Filiere filiere ;
-//        if (opt.isPresent()) {
-//            filiere = opt.get();
-//        } else {
-//            throw new RuntimeException("Filiere not found for id :: " + id);
-//        }
     }
 
     @Override
