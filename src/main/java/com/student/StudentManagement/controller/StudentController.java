@@ -5,7 +5,6 @@ import com.student.StudentManagement.dto.RespenseStudentDto;
 import com.student.StudentManagement.enumurations.Diplomat;
 import com.student.StudentManagement.model.Carriere;
 import com.student.StudentManagement.model.StudentPojo;
-import com.student.StudentManagement.services.CarriereService;
 import com.student.StudentManagement.services.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +29,11 @@ public class StudentController {
 
     }
 
-
     @GetMapping("/getStudent/{apogee}")
     public RequestStudentDto viewStudent(@PathVariable(value = "apogee") Long apogee) {
         return studentService.getStudentByApogee(apogee);
 
     }
-
 
     @DeleteMapping("/{apogee}")
     public void deleteStudent(@PathVariable(value = "apogee") Long apogee) {
@@ -47,12 +44,14 @@ public class StudentController {
     public List<Carriere> getCarrieresByStudent(@PathVariable(name = "id") Long id) {
         return studentService.getCarrieresByStudentId(id);
     }
+
     @GetMapping("/getDiplomat/{apogee}")
-    public Diplomat getCurrentDiplomat(@PathVariable(value = "apogee") Long apogee){
+    public Diplomat getCurrentDiplomat(@PathVariable(value = "apogee") Long apogee) {
         return studentService.getCurrentDiplomat(apogee);
     }
+
     @PutMapping("/{id}")
-    public RequestStudentDto updateStudent(@PathVariable Long id , @RequestBody RequestStudentDto requestStudentDto){
-        return studentService.updateStudent(id,requestStudentDto);
+    public RequestStudentDto updateStudent(@PathVariable Long id, @RequestBody RequestStudentDto requestStudentDto) {
+        return studentService.updateStudent(id, requestStudentDto);
     }
 }
