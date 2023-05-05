@@ -1,6 +1,5 @@
 package com.student.StudentManagement.dto;
 
-import com.student.StudentManagement.enumurations.Diplomat;
 import com.student.StudentManagement.enumurations.Gender;
 import com.student.StudentManagement.model.Carriere;
 import com.student.StudentManagement.model.Filiere;
@@ -9,8 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Data

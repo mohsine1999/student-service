@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

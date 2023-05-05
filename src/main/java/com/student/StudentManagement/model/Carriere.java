@@ -2,12 +2,15 @@ package com.student.StudentManagement.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.student.StudentManagement.enumurations.Diplomat;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity(name = "carriere")
 @Table(uniqueConstraints=@UniqueConstraint( columnNames={"diplomat", "student_id"}))
