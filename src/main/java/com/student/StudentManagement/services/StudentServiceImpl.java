@@ -102,12 +102,9 @@ public class StudentServiceImpl implements StudentService {
                     .filier(std.getFilier())
                     .carrieres(std.getCarrieres())
                     .build();
-
         } else {
             throw new NullPointerException("Student not found !!!");
         }
-
-
         return dto;
     }
 
