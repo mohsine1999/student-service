@@ -4,18 +4,23 @@ import com.student.StudentManagement.dto.RequestStudentDto;
 import com.student.StudentManagement.dto.RespenseStudentDto;
 import com.student.StudentManagement.enumurations.Diplomat;
 import com.student.StudentManagement.model.Carriere;
+import com.student.StudentManagement.model.Filiere;
+import com.student.StudentManagement.model.Student;
 import com.student.StudentManagement.model.StudentPojo;
+import com.student.StudentManagement.repository.FilierRepository;
 import com.student.StudentManagement.services.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/students")
 @RequiredArgsConstructor
 public class StudentController {
     private final StudentService studentService;
+    private final FilierRepository filierRepository;
 
     @PostMapping
     public void SaveStudent(@RequestBody StudentPojo data) {
@@ -56,8 +61,8 @@ public class StudentController {
     }
 
     @PostMapping("/saveStudents")
-    public void saveStudents(@RequestBody List<RequestStudentDto> requestStudentDtos){
-            for (RequestStudentDto std : requestStudentDtos) {
+    public void saveStudents(@RequestBody List<StudentPojo> requestStudentDtos){
+            for (StudentPojo std : requestStudentDtos) {
                 StudentPojo studentPojo = StudentPojo.builder()
                         .cin(std.getCin())
                         .apogee(std.getApogee())
@@ -70,9 +75,8 @@ public class StudentController {
                         .lieuNaissance(std.getLieuNaissance())
                         .adresse(std.getAdresse())
                         .genre(std.getGenre())
-                        .idFiliere(1L)
+                        .idFiliere(std.getIdFiliere())
                         .build();
-
                 studentService.saveStudent(studentPojo);
 
             }
