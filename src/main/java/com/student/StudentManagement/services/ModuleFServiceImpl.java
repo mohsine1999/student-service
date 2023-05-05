@@ -3,6 +3,7 @@ package com.student.StudentManagement.services;
 import com.student.StudentManagement.dto.RequestFiliereDto;
 import com.student.StudentManagement.dto.RequestModuleFDto;
 import com.student.StudentManagement.dto.RespenseModuleFDto;
+import com.student.StudentManagement.exceptions.StudentServiceRequestException;
 import com.student.StudentManagement.model.Filiere;
 import com.student.StudentManagement.model.ModuleF;
 import com.student.StudentManagement.model.ModulePojo;
@@ -39,7 +40,7 @@ public class ModuleFServiceImpl implements ModuleFService {
     @Override
     public void saveModule(ModulePojo dataPojo) {
         Filiere filiere = filierRepository.findById(dataPojo.getIdFiliere())
-                .orElseThrow(() -> new RuntimeException("Filiere Not Found"));
+                .orElseThrow(() -> new StudentServiceRequestException("Filiere Not Found"));
         ModuleF moduleF = new ModuleF();
         BeanUtils.copyProperties(dataPojo, moduleF);
         moduleF.setFiliere(filiere);
@@ -69,7 +70,7 @@ public class ModuleFServiceImpl implements ModuleFService {
         if (opt.isPresent()) {
             moduleF = opt.get();
         } else {
-            throw new RuntimeException("Module not found for id :: " + id);
+            throw new StudentServiceRequestException("Module not found for id :: " + id);
         }
         BeanUtils.copyProperties(moduleF, dto);
         return dto;
@@ -78,7 +79,7 @@ public class ModuleFServiceImpl implements ModuleFService {
     @Override
     public RequestModuleFDto updateModuleF(Long id, RequestModuleFDto requestModuleFDto) {
 
-        ModuleF moduleF = moduleFRepository.findById(id).orElseThrow(()->new RuntimeException("module not found !"));
+        ModuleF moduleF = moduleFRepository.findById(id).orElseThrow(()->new StudentServiceRequestException("module not found !"));
         RequestModuleFDto dto = RequestModuleFDto.builder().build();
         BeanUtils.copyProperties(moduleF,dto);
         if(requestModuleFDto.getName()!=null) dto.setName(requestModuleFDto.getName());

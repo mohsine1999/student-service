@@ -3,6 +3,7 @@ package com.student.StudentManagement.services;
 import com.student.StudentManagement.dto.RequestStudentDto;
 import com.student.StudentManagement.dto.RespenseStudentDto;
 import com.student.StudentManagement.enumurations.Diplomat;
+import com.student.StudentManagement.exceptions.StudentServiceRequestException;
 import com.student.StudentManagement.model.Carriere;
 import com.student.StudentManagement.model.Filiere;
 import com.student.StudentManagement.model.Student;
@@ -10,7 +11,6 @@ import com.student.StudentManagement.model.StudentPojo;
 import com.student.StudentManagement.repository.CarriereRepository;
 import com.student.StudentManagement.repository.FilierRepository;
 import com.student.StudentManagement.repository.StudentRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void saveStudent(StudentPojo dataPojo) {
         Filiere filiere = filierRepository.findById(dataPojo.getIdFiliere())
-                .orElseThrow(() -> new RuntimeException(" This Filiere is not exist in database"));
+                .orElseThrow(() -> new StudentServiceRequestException(" Filiere not found !"));
 
         Student student = new Student();
 
@@ -103,14 +103,14 @@ public class StudentServiceImpl implements StudentService {
                     .carrieres(std.getCarrieres())
                     .build();
         } else {
-            throw new NullPointerException("Student not found !!!");
+            throw new StudentServiceRequestException("Student not found !!!");
         }
         return dto;
     }
 
     @Override
     public RequestStudentDto updateStudent(Long id, RequestStudentDto requestStudentDto) {
-        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found !"));
+        Student student = studentRepository.findById(id).orElseThrow(() -> new StudentServiceRequestException("student not found !"));
         RequestStudentDto dto = RequestStudentDto.builder().build();
         BeanUtils.copyProperties(student, dto);
         if (requestStudentDto.getCin() != null) dto.setCin(requestStudentDto.getCin());
@@ -143,7 +143,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Carriere> getCarrieresByStudentId(Long StudentId) {
         Student student = studentRepository.findById(StudentId)
-                .orElseThrow(() -> new EntityNotFoundException("Student not found"));
+                .orElseThrow(() -> new StudentServiceRequestException("Student not found"));
         return student.getCarrieres();
     }
 

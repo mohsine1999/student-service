@@ -24,7 +24,7 @@ public class FiliereController {
         BeanUtils.copyProperties(filiere, dto);
         RequestFiliereDto dto1 = filiereService.createFiliere(dto);
         BeanUtils.copyProperties(dto1, adResp);
-        System.out.println(" sir 3ellah");
+
 
         return adResp;
     }

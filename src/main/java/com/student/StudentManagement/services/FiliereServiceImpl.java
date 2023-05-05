@@ -2,6 +2,7 @@ package com.student.StudentManagement.services;
 
 import com.student.StudentManagement.dto.RequestFiliereDto;
 import com.student.StudentManagement.dto.RespenseFiliereDto;
+import com.student.StudentManagement.exceptions.StudentServiceRequestException;
 import com.student.StudentManagement.model.Filiere;
 import com.student.StudentManagement.repository.FilierRepository;
 import lombok.Builder;
@@ -51,7 +52,7 @@ public class FiliereServiceImpl implements FiliereService {
         if (opt.isPresent()) {
             filiere = opt.get();
         } else {
-            throw new RuntimeException("Filiere not found for id :: " + id);
+            throw new StudentServiceRequestException("Filiere not found for id :: " + id);
         }
         BeanUtils.copyProperties(filiere, dto);
         return dto;
@@ -59,7 +60,7 @@ public class FiliereServiceImpl implements FiliereService {
 
     @Override
     public RequestFiliereDto updateFiliere(Long id,RequestFiliereDto requestFiliereDto) {
-        Filiere filiere = filierRepository.findById(id).orElseThrow(()->new RuntimeException("filiere not found"));
+        Filiere filiere = filierRepository.findById(id).orElseThrow(()->new StudentServiceRequestException("filiere not found"));
          RequestFiliereDto dto = RequestFiliereDto.builder().build();
          BeanUtils.copyProperties(filiere,dto);
             if(requestFiliereDto.getName()!=null) dto.setName(requestFiliereDto.getName());
