@@ -54,4 +54,31 @@ public class StudentController {
     public RequestStudentDto updateStudent(@PathVariable Long id, @RequestBody RequestStudentDto requestStudentDto) {
         return studentService.updateStudent(id, requestStudentDto);
     }
+
+    @PostMapping("/saveStudents")
+    public void saveStudents(@RequestBody List<RequestStudentDto> requestStudentDtos){
+
+        for (int i = 0; i < requestStudentDtos.size() ; i++) {
+
+            for (RequestStudentDto std : requestStudentDtos) {
+                StudentPojo studentPojo = StudentPojo.builder()
+                        .cin(std.getCin())
+                        .apogee(std.getApogee())
+                        .nom(std.getNom())
+                        .prenom(std.getPrenom())
+                        .cne(std.getCne())
+                        .email(std.getEmail())
+                        .phone(std.getPhone())
+                        .dateNaissance(std.getDateNaissance())
+                        .lieuNaissance(std.getLieuNaissance())
+                        .adresse(std.getAdresse())
+                        .genre(std.getGenre())
+                        .idFiliere(std.getApogee())
+                        .build();
+                studentService.saveStudent(studentPojo);
+
+            }
+        }
+
+    }
 }
