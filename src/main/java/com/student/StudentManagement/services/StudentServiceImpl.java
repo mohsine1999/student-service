@@ -10,11 +10,11 @@ import com.student.StudentManagement.model.StudentPojo;
 import com.student.StudentManagement.repository.CarriereRepository;
 import com.student.StudentManagement.repository.FilierRepository;
 import com.student.StudentManagement.repository.StudentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

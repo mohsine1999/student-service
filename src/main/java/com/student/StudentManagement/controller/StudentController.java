@@ -57,9 +57,6 @@ public class StudentController {
 
     @PostMapping("/saveStudents")
     public void saveStudents(@RequestBody List<RequestStudentDto> requestStudentDtos){
-
-        for (int i = 0; i < requestStudentDtos.size() ; i++) {
-
             for (RequestStudentDto std : requestStudentDtos) {
                 StudentPojo studentPojo = StudentPojo.builder()
                         .cin(std.getCin())
@@ -73,12 +70,12 @@ public class StudentController {
                         .lieuNaissance(std.getLieuNaissance())
                         .adresse(std.getAdresse())
                         .genre(std.getGenre())
-                        .idFiliere(std.getApogee())
+                        .idFiliere(1L)
                         .build();
+
                 studentService.saveStudent(studentPojo);
 
             }
         }
 
-    }
 }
