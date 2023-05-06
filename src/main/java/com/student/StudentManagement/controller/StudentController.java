@@ -5,16 +5,15 @@ import com.student.StudentManagement.dto.RespenseStudentDto;
 import com.student.StudentManagement.enumurations.Diplomat;
 import com.student.StudentManagement.exceptions.StudentServiceRequestException;
 import com.student.StudentManagement.model.Carriere;
-import com.student.StudentManagement.model.Filiere;
-import com.student.StudentManagement.model.Student;
 import com.student.StudentManagement.model.StudentPojo;
 import com.student.StudentManagement.repository.FilierRepository;
 import com.student.StudentManagement.services.StudentService;
+import jakarta.ws.rs.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/students")
@@ -36,8 +35,17 @@ public class StudentController {
     }
 
     @GetMapping("/getStudent/{apogee}")
-    public RequestStudentDto viewStudent(@PathVariable(value = "apogee") Long apogee)  {
+    public RequestStudentDto viewStudent(@PathVariable(value = "apogee") String apogeeStr)  {
+        if (apogeeStr == null || apogeeStr.trim().isEmpty()) {
+            throw new StudentServiceRequestException("Apogee value is missing");
+        }
 
+        Long apogee = null;
+        try {
+            apogee = Long.parseLong(apogeeStr);
+        } catch (NumberFormatException e) {
+            throw new StudentServiceRequestException("Invalid apogee value: " + apogeeStr);
+        }
         return studentService.getStudentByApogee(apogee);
     }
 
