@@ -37,6 +37,7 @@ public class StudentController {
 
     @GetMapping("/getStudent/{apogee}")
     public RequestStudentDto viewStudent(@PathVariable(value = "apogee") Long apogee)  {
+
         return studentService.getStudentByApogee(apogee);
     }
 
