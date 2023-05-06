@@ -3,6 +3,7 @@ package com.student.StudentManagement.controller;
 import com.student.StudentManagement.dto.RequestStudentDto;
 import com.student.StudentManagement.dto.RespenseStudentDto;
 import com.student.StudentManagement.enumurations.Diplomat;
+import com.student.StudentManagement.exceptions.StudentServiceRequestException;
 import com.student.StudentManagement.model.Carriere;
 import com.student.StudentManagement.model.Filiere;
 import com.student.StudentManagement.model.Student;
@@ -35,9 +36,8 @@ public class StudentController {
     }
 
     @GetMapping("/getStudent/{apogee}")
-    public RequestStudentDto viewStudent(@PathVariable(value = "apogee") Long apogee) {
+    public RequestStudentDto viewStudent(@PathVariable(value = "apogee") Long apogee)  {
         return studentService.getStudentByApogee(apogee);
-
     }
 
     @DeleteMapping("/{apogee}")

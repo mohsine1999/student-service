@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -84,27 +85,15 @@ public class StudentServiceImpl implements StudentService {
 //    }
     @Override
     public RequestStudentDto getStudentByApogee(Long apogee) {
-        RequestStudentDto dto;
-        if (apogee != null) {
-            Student std = studentRepository.getStudentByApogee(apogee);
-            dto = RequestStudentDto.builder()
-                    .cin(std.getCin())
-                    .apogee(std.getApogee())
-                    .nom(std.getNom())
-                    .prenom(std.getPrenom())
-                    .cne(std.getCne())
-                    .email(std.getEmail())
-                    .phone(std.getPhone())
-                    .dateNaissance(std.getDateNaissance())
-                    .lieuNaissance(std.getLieuNaissance())
-                    .adresse(std.getAdresse())
-                    .genre(std.getGenre())
-                    .filier(std.getFilier())
-                    .carrieres(std.getCarrieres())
-                    .build();
+        RequestStudentDto dto = RequestStudentDto.builder().build();
+        Optional<Student> opt = Optional.ofNullable(studentRepository.getStudentByApogee(apogee));
+        Student student;
+        if (opt.isPresent()) {
+            student = opt.get();
         } else {
-            throw new StudentServiceRequestException("Student not found !!!");
+            throw new StudentServiceRequestException("student not found for apogee : "+apogee);
         }
+        BeanUtils.copyProperties(student, dto);
         return dto;
     }
 
