@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.ClassBasedNavigableIterableAssert.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -91,18 +92,29 @@ class StudentManagementApplicationTests {
 
     @DisplayName("JUnit test for getStudent method")
     @Test
-    public void testGetStudentApogee(){
-        // given - precondition or setup
+    public void getStudentByApogee() {
+        std = Student.builder()
+                .cin("jhgf")
+                .apogee(23456L)
+                .nom("kjh")
+                .prenom("hdhdhd")
+                .cne("jhdhdhd")
+                .email("shddsf@gmail.com")
+                .phone("234567")
+                .dateNaissance( new Date())
+                .lieuNaissance("sdfghj")
+                .adresse("gfds")
+                .genre(Gender.FEMALE)
+
+                .build();
+
+        RequestStudentDto requestStudentDto= RequestStudentDto.builder().build();
+        BeanUtils.copyProperties(std,requestStudentDto);
+        // providing knowledge
+        when(studentService.getStudentByApogee(std.getApogee())).thenReturn(requestStudentDto);
 
 
-        //given(studentRepository.getStudentByApogee(student.getApogee())).willReturn(student);
-        given(std).willReturn(student1);
 
-
-        // when -  action or the behaviour that we are going test
-
-
-        // then - verify the output
     }
 
 }
