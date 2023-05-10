@@ -2,6 +2,7 @@ package com.student.StudentManagement.services;
 
 import com.student.StudentManagement.dto.RequestFiliereDto;
 import com.student.StudentManagement.dto.RespenseFiliereDto;
+import com.student.StudentManagement.enumurations.Diplomat;
 import com.student.StudentManagement.exceptions.StudentServiceRequestException;
 import com.student.StudentManagement.model.Filiere;
 import com.student.StudentManagement.repository.FilierRepository;
@@ -42,6 +43,29 @@ public class FiliereServiceImpl implements FiliereService {
         }
         return respenseFiliereDtos;
     }
+
+    @Override
+//    public List<Filiere> getFiliereByDiplomat(Diplomat diplomat) {
+//      return filierRepository.getFiliereByDiplomat(diplomat);
+//
+//        }
+    public List<RespenseFiliereDto> getFiliereByDiplomat(Diplomat diplomat) {
+        List<Filiere> filieres = filierRepository.getFiliereByDiplomat(diplomat);
+        RespenseFiliereDto respenseFiliereDto ;
+        List<RespenseFiliereDto> respenseFiliereDtos = new ArrayList<>();
+        for (Filiere f: filieres) {
+
+            respenseFiliereDto = RespenseFiliereDto.builder()
+                    .name(f.getName())
+                    .build();
+            respenseFiliereDtos.add(respenseFiliereDto);
+
+
+        }
+        return  respenseFiliereDtos;
+
+    }
+
 
     @Override
     public RespenseFiliereDto getFiliereById(Long id) {
